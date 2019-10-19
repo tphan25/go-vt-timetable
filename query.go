@@ -1,7 +1,6 @@
 package main
 
 import (
-	"fmt"
 	"net/http"
 	"reflect"
 	"strings"
@@ -44,13 +43,11 @@ func SendQuery(inputURL string, cq CourseQuery) (*http.Response, error) {
 		jsonTag = string(reflect.TypeOf(cq).Field(i).Tag)         //Gets struct tag using reflection
 		tagOnly = strings.Trim(string([]rune(jsonTag)[5:]), "\"") //Cuts off first 5 chars
 		value = v.Field(i).Interface().(string)
-		fmt.Println(tagOnly, value)
 		if len(value) > 0 {
 			q.Add(tagOnly, value)
 		}
 	}
 	req.URL.RawQuery = q.Encode()
-	fmt.Println(req.URL.String())
 	client := &http.Client{}
 	resp, err := client.Do(req)
 
