@@ -237,7 +237,7 @@ func readCourseRow(tokenizer *html.Tokenizer) (Course, bool) {
 	//Check if the table contains "Additional Times", this occurs 7 newline elements later in the table (multiple <td> elements)
 	currentBuffer := string(tokenizer.Buffered())
 	lines := strings.Split(currentBuffer, "\n")
-	if len(lines) > 0 && strings.Contains(lines[7], "Additional Times") {
+	if len(lines) > 7 && strings.Contains(lines[7], "Additional Times") {
 		//Do the case here, reading the row and setting the additional times field
 		var at AdditionalTimes
 		additionalTimesDays, err := getTextFieldsFromTokenizer(tokenizer, []string{"tr", "td", "td", "td", "td", "td", "b", "td"}, "additionalTimesDays")

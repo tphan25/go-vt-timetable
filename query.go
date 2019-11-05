@@ -21,11 +21,30 @@ type CourseQuery struct {
 	OpenOnly     string `json:"open_only"`
 }
 
+/*Season is a type specifically to match seasons to specific months using the constants below.*/
+type Season string
+
+const (
+	SPRING  Season = "01"
+	SUMMER1 Season = "06"
+	SUMMER2 Season = "07"
+	FALL    Season = "09"
+	WINTER  Season = "12"
+)
+
+/*Term creates a TermYear field from two parameters, year and season. Year should be formatted as YYYY and season should be referenced from the above enum/constant.*/
+func Term(year string, season Season) string {
+	return year + string(season)
+}
+
 /*SendQuery sends the query to the given URL.*/
 func SendQuery(inputURL string, cq CourseQuery) (*http.Response, error) {
 	//Required for request to process correctly
 	if len(cq.CoreCode) == 0 {
 		cq.CoreCode = "AR%"
+	}
+	if len(cq.SubjectCode) == 0 {
+		cq.SubjectCode = "%"
 	}
 
 	req, err := http.NewRequest("POST", inputURL, nil)
