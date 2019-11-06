@@ -1,4 +1,4 @@
-package main
+package vttimetable
 
 //TODO: should be moved to its own package
 

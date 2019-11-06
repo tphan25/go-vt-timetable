@@ -1,4 +1,4 @@
-package main
+package vttimetable
 
 /*All of these "constants" are to be used when making API requests, as they are much more readable. */
 
